@@ -1,0 +1,83 @@
+/*************************************************************************
+    > File Name: N皇后问题.cpp
+    > Author: zhanghaoran
+    > Mail: chilumanxi@gmail.com 
+    > Created Time: 2015年07月17日 星期五 16时35分22秒
+ ************************************************************************/
+
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
+#include <cstring>
+#include <math.h>
+using namespace std;
+
+int n;
+int temp = 0;
+int map[14][14];
+int ans = 0;
+/*
+int check(int num, int x){
+	for(int i = 1; i <= n; i ++){
+		if(map[i][x] || map[num][i])
+			return 0;
+	}
+	for(int i = 1; num - i > 0 && x - i > 0; i ++){
+		if(map[num - i][x - i])
+			return 0;
+	}
+	for(int i = 1; num + i <= n && x + i <= n; i ++){
+		if(map[num +i][x + i])
+			return 0;
+	}
+	for(int i = 1; num + i <= n && x - i > 0; i ++){
+		if(map[num + i][x - i])
+			return 0;
+	}
+	for(int i = 1; num - i > 0 && x + i <= n; i ++){
+		if(map[num - i][x + i])
+			return 0;
+	}
+	return 1;
+}
+*/
+
+int check(int num, int x){
+	for(int i = 1; i <= num; i ++){
+		if(map[i][x])
+			return 0;
+		for(int j = 1; j <= 13; j ++){
+			if(map[i][j]){
+				if(fabs(i - num) - fabs(j - x) == 0){
+					return 0;
+				}
+				else 
+					break;
+			}
+		}
+	}
+	return 1;
+}
+void dfs(int num){
+	if(num == n + 1){
+		ans ++;
+		return ;
+	}
+
+	for(int i = 1; i <= n; i ++){
+		if(check(num, i)){
+			map[num][i] = 1;
+			dfs(num + 1);
+			map[num][i] = 0;
+		}
+	}
+	return ;
+}
+
+int main(void){
+	memset(map, 0, sizeof(map));
+	cin >> n;
+	dfs(1);
+	cout << ans << endl;
+	return 0;
+}

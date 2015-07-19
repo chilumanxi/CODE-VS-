@@ -1,0 +1,37 @@
+/*************************************************************************
+    > File Name: 全排列.cpp
+    > Author: zhanghaoran
+    > Mail: chilumanxi@gmail.com 
+    > Created Time: 2015年07月17日 星期五 11时41分21秒
+ ************************************************************************/
+
+#include <stdio.h>
+
+int n;
+int flag[11];
+int parr[11];
+
+void dfs(int num){
+	if(num == n + 1){
+	 	for(int i = 1; i <= n; i ++){
+			printf("%d ", parr[i]);
+		}
+		printf("\n");
+		return ;
+	}
+	for(int i = 1; i <= n; i ++){
+		if(flag[i])
+			continue;
+		parr[num] = i;
+		flag[i] = 1;
+		dfs(num + 1);
+		flag[i] = 0;
+	}
+	return ;
+}
+
+int main(void){
+	scanf("%d", &n);
+	dfs(1);
+	return 0;
+}
